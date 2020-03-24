@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ajax Demo</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            function GetAllSnakes(){
+                $.get("/snakes/all", function(serverResponse){
+                    $(".allSnakes").html(serverResponse);
+                })
+            }
+
+            function GetSnakeForm(){
+                $.get("/snakes/new", function(serverResponse){
+                    $("#div_for_form").html(serverResponse);
+                })
+            }
+
+            // On clicking an element with a class of viewAll
+            $(document).on('click', '.viewAll', function(e){
+                // Prevent the default action (in the case of an "a" tag, firing off an http request)
+                e.preventDefault();
+                // Make an async get request to the href attribute and run a function
+                GetAllSnakes();
+            })
+
+            // On clicking an element with a class of seeSnake
+            $(document).on('click', '.seeSnake', function(e){
+                // Prevent the default action (in the case of an "a" tag, firing off an http request)
+                e.preventDefault();
+                // Make an async get request to the href attribute and run a function
+                $.get($(this).attr('href'), function(serverResponse){
+                    $('.oneSnake').html(serverResponse);
+                })
+            })
+
+            $(document).on('click', '.deleteSnake', function(e){
+                e.preventDefault();
+                $.get($(this).attr('href'), function(serverResponse){
+                    $(".allSnakes").html(serverResponse);
+                })
+            })
+
+            $(document).on('click', '.newForm', function(e){
+                e.preventDefault();
+
+                $.get($(this).attr('href'), function(serverResponse){
+                    $("#div_for_form").html(serverResponse);
+                })
+
+            })
+
+            $(document).on('submit', '#snakeForm', function(e){
+                e.preventDefault();
+
+                $.post($(this).attr('action'), $("#snakeForm").serialize(), function(serverResponse){
+                    if (serverResponse['status'] == "error"){
+                        GetSnakeForm()
+                    } 
+                    else {
+                        GetAllSnakes();
+                        GetSnakeForm();
+                    }
+                })
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <div class='container'>
+        <h1>Welcome to the Snake Pit</h1>
+        <div class="row">
+            <a class="viewAll" href="/snakes/all">View All Snakes</a> | <a class="newForm" href="/snakes/new">Add a
+                Snake</a>
+        </div>
+        <div class="row">
+            <div id="div_for_form" class="col-sm-6"></div>
+            <div class="aboutSnakes col-sm-6">
+                <h3>ABOUT SNAKES</h3>
+                <p>There are more than 3,000 species of snakes on the planet and they’re found everywhere except in
+                    Antarctica, Iceland, Ireland, Greenland, and New Zealand. About 600 species are venomous, and only
+                    about 200—seven percent—are able to kill or significantly wound a human.
+                </p>
+                <p>
+                    Nonvenomous snakes, which range from harmless garter snakes to the not-so-harmless python, dispatch
+                    their victims by swallowing them alive or constricting them to death. Whether they kill by striking
+                    with venom or squeezing, nearly all snakes eat their food whole, in sometimes astoundingly large
+                    portions.
+                </p>
+                <p>
+                    Almost all snakes are covered in scales and as reptiles, they’re cold blooded and must regulate
+                    their body temperature externally. Scales serve several purposes: They trap moisture in arid
+                    climates and
+                    reduce friction as the snake moves. There have been several species of snakes discovered that are
+                    mostly
+                    scaleless, but even those have scales on their bellies.
+                </p>
+                <h3>HOW SNAKES HUNT</h3>
+                <p>
+                    Snakes also have forked tongues, which they flick in different directions to smell their
+                    surroundings.
+                    That lets them know when danger—or food—is nearby.
+                </p>
+                <p>
+                    Snakes have several other ways to detect a snack. Openings called pit holes in front of their eyes
+                    sense
+                    the heat given off by warm-blooded prey. And bones in their lower jaws pick up vibrations from
+                    rodents
+                    and other scurrying animals. When they do capture prey, snakes can eat animals up to three times
+                    bigger
+                    than their head is wide because their lower jaws unhinge from their upper jaws. Once in a snake’s
+                    mouth,
+                    the prey is held in place by teeth that face inward, trapping it there.
+                </p>
+                <h3>HABITS</h3>
+                <p>
+                    About once a month snakes shed their skin, a process called ecdysis that makes room for growth and
+                    gets
+                    rid of parasites. They rub against a tree branch or other object, then slither out of their skin
+                    head
+                    first, leaving it discarded inside-out.
+                </p>
+                <p>
+                    Most snakes lay eggs, but some species—like sea snakes—give live birth to young. Very few snakes pay
+                    any
+                    attention to their eggs, with the exception of pythons, which incubate their eggs.
+                </p>
+                <p>
+                    There are roughly a hundred snake species listed by the IUCN Red List as endangered, typically due
+                    to
+                    habitat loss from development.
+                </p>
+                <p>
+                    Here’s a fact to make ophidiophobes feel uneasy: Five species of snakes can fly.
+                </p>
+
+                <h3>SEA SNAKES</h3>
+                <p>
+                    Most snakes live on land, but there are about 70 species of snakes that live in the Indian and
+                    Pacific
+                    oceans. Sea snakes and their cousins, kraits, are some of the most venomous snakes that exist, but
+                    they
+                    pose little threat to humans because they’re shy, gentle, and their fangs are too short to do much
+                    damage.
+                </p>
+                <h3>SNAKES AND MAN</h3>
+                <p>
+                    Snakes are misunderstood and often maligned, primarily out of ignorance about their true nature and
+                    position in the natural world. All snakes are predators, but venomous snakes (that is, biting snakes
+                    that use their fangs to inject toxins into their victims) have given an inaccurate reputation to the
+                    entire group, as most people cannot tell the dangerous from the harmless. Only a small percentage
+                    (fewer
+                    than 300 species) are venomous, and of those only about half are capable of inflicting a lethal
+                    bite.
+                    Although snakebite mortality worldwide is estimated at 30,000–40,000 people per year, the majority
+                    of
+                    deaths (25,000–35,000) occur in Southeast Asia, principally because of poor medical treatment,
+                    malnutrition of victims, and a large number of venomous species. Although there are 8,000 venomous
+                    snakebites per year in the United States, the average number of annual fatalities is only a dozen or
+                    so
+                    per year—fewer than are attributed to bee stings and lightning strikes. In Mexico, 10 times as many
+                    people die annually from bee stings as from snakebites.
+                </p>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="allSnakes col-sm-8"></div>
+            <div class="oneSnake col-sm-4"></div>
+        </div>
+    </div>
+</body>
+
+</html>

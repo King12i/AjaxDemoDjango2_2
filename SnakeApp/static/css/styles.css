@@ -1,0 +1,28 @@
+*{ 
+    font-size: 14pt;
+}
+
+
+.bigger-checkbox {
+    width: 20px;
+    height: 20px;
+}
+
+.aboutSnakes {
+    height: 400px;
+    overflow: auto;
+}
+
+#snakeForm {
+    margin-top: 30px;
+}
+
+.h5 {
+    font-weight: bolder;
+    font-size: 14pt;
+}
+
+.allSnakes {
+    height: 300px;
+    overflow: auto;
+}

@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Add a Snake</h2>
+            </div>
+            <div class="col-sm-4 text-right"><a href="/">Go Home</a></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6"> -->
+                <form action="/snakes/add" id="snakeForm" class="form-horizontal" method="POST">
+                    {% csrf_token %}
+                    <div class=" form-group">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'name' %}
+                        <span class="errors col-sm-12" style="color: red; font-size: 10pt;">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        <label class="col-sm-3" for="name">Name:</label>
+                        <div class="form-group col-sm-6">
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'length' %}
+                        <span class="errors col-sm-12" style="color: red; font-size: 10pt;">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        <label class="col-sm-3" for="length">Length:</label>
+                        <div class="form-group col-sm-6">
+                            <input type="number" name="length" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags == 'venomous' %}
+                        <span class="errors col-sm-12" style="color: red; font-size: 10pt;">{{message}}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        <label class="col-sm-3" for="venomous">Venomous:</label>
+                        <div class="form-group text-right col-sm-6">
+                            <input class="bigger-checkbox" type="checkbox" name="venomous" value="True">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="col-sm-4 col-sm-offset-3 btn btn-default">
+                    </div>
+                </form>
+            <!-- </div>
+        </div>
+    </div>
+</body>
+
+</html> -->

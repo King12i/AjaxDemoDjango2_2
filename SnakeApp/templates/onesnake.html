@@ -1,0 +1,31 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="container"> -->
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Information for {{snake.name}}</h2>
+            </div>
+            <!-- <div class="col-sm-4 text-right"><a href="/">Go Home</a></div> -->
+        </div>
+        <div class="row">
+            <p><span class="h5">Name:</span> {{snake.name}}</p>
+            <p><span class="h5">Length:</span> {{snake.length}} feet</p>
+            <p><span class="h5">Venomous:</span>{% if snake.venomous %}Yes{% else %}No{% endif %}</p>
+        </div>
+    <!-- </div>
+
+</body>
+
+</html> -->
